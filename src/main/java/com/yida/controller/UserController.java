@@ -1,6 +1,8 @@
 package com.yida.controller;
 
 import com.yida.entity.User;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import com.yida.service.UserService;
 
@@ -28,6 +30,7 @@ public class UserController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
+    @RequiresPermissions(logical = Logical.AND, value = {"user:view", "user:edit"})
     public User selectOne(Integer id) {
         return this.userService.queryById(id);
     }

@@ -30,7 +30,7 @@ public class JWTUtil {
             JWTVerifier verifier = JWT.require(algorithm)
                     .withClaim("username", username)
                     .build();
-            DecodedJWT jwt = verifier.verify(token);
+            verifier.verify(token);
             return true;
         } catch (Exception exception) {
             return false;
@@ -70,7 +70,6 @@ public class JWTUtil {
                     .withExpiresAt(date)
                     .sign(algorithm);
             logger.debug(String.format("JWT:%s", jwtString));
-            System.out.printf("JWT:%s\n", jwtString);
             return jwtString;
 
             //下面这个多了一个角色字段
@@ -80,9 +79,6 @@ public class JWTUtil {
 //            		                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXP)) /*过期时间*/            		 
 //            		                .signWith(SignatureAlgorithm.HS256, secret)            		 
 //            		                .compact();
-//            		 ———————————————— 
-//            		版权声明：本文为CSDN博主「_wanshuang_」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。
-//            		原文链接：https://blog.csdn.net/weixin_41835866/article/details/82119017
         } catch (UnsupportedEncodingException e) {
             return null;
         }

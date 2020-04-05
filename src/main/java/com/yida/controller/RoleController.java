@@ -1,6 +1,8 @@
 package com.yida.controller;
 
 import com.yida.entity.Role;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
 import com.yida.service.RoleService;
 
@@ -28,6 +30,7 @@ public class RoleController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
+    @RequiresRoles(value = {"guest","admin"},logical = Logical.AND)
     public Role selectOne(Integer id) {
         return this.roleService.queryById(id);
     }

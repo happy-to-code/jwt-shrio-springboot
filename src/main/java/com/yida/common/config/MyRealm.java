@@ -1,11 +1,13 @@
 package com.yida.common.config;
 
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.yida.common.JWTToken;
-import com.yida.common.UserBean;
+import com.yida.dto.UserDTO;
+import com.yida.entity.Permission;
+import com.yida.entity.Role;
+import com.yida.service.UserService;
 import com.yida.util.JWTUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,27 +16,21 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Configuration
 public class MyRealm extends AuthorizingRealm {
+    @Resource
+    private UserService userService;
 
-    private static final Logger LOGGER = LogManager.getLogger(MyRealm.class);
-
-    private UserService1 userService1;
-
-    @Autowired
-    public void setUserService1(UserService1 userService1) {
-        this.userService1 = userService1;
-    }
 
     /**
-     * 大坑！，必须重写此方法，不然Shiro会报错
+     * 必须重写此方法，不然Shiro会报错
      */
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -47,12 +43,50 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = JWTUtil.getUsername(principals.toString());
-        UserBean user = userService1.getUser(username);
+        // 根据用户名获取用户角色 权限信息
+        UserDTO user = userService.getByUseName(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        simpleAuthorizationInfo.addRole(user.getRole());
-        Set<String> permission = new HashSet<String>(Arrays.asList(user.getPermission().split(",")));
-        simpleAuthorizationInfo.addStringPermissions(permission);
+
+        // 获取角色
+        List<String> roleNames = getRoleNameList(user.getRoleList());
+        for (String roleName : roleNames) {
+            simpleAuthorizationInfo.addRole(roleName);
+        }
+
+        // 获取权限
+        List<String> permissions = getPermissionList(user.getPermissionList());
+        simpleAuthorizationInfo.addStringPermissions(new HashSet<>(permissions));
         return simpleAuthorizationInfo;
+    }
+
+    /**
+     * 获取权限
+     *
+     * @param permissionList
+     * @return
+     */
+    private List<String> getPermissionList(List<Permission> permissionList) {
+        List<String> permissions = new ArrayList<>(permissionList.size());
+        for (Permission permission : permissionList) {
+            if (StringUtils.isNotBlank(permission.getPerCode())) {
+                permissions.add(permission.getPerCode());
+            }
+        }
+        return permissions;
+    }
+
+    /**
+     * 获取角色名称
+     *
+     * @param roleList
+     * @return
+     */
+    private List<String> getRoleNameList(List<Role> roleList) {
+        List<String> roleNames = new ArrayList<>(roleList.size());
+        for (Role role : roleList) {
+            roleNames.add(role.getName());
+        }
+        return roleNames;
     }
 
     /**
@@ -67,7 +101,7 @@ public class MyRealm extends AuthorizingRealm {
             throw new AuthenticationException("token invalid");
         }
 
-        UserBean userBean = userService1.getUser(username);
+        UserDTO userBean = userService.getByUseName(username);
         if (userBean == null) {
             throw new AuthenticationException("User didn't existed!");
         }
