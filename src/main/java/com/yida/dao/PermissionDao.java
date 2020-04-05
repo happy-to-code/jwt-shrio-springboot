@@ -64,4 +64,11 @@ public interface PermissionDao extends BaseMapper<Permission> {
      */
     int deleteById(Integer id);
 
+    /**
+     * 根据roleId获取权限
+     *
+     * @param roleIds
+     * @return
+     */
+    List<Permission> getByRoleIdList(@Param("roleIds") List<Integer> roleIds);
 }

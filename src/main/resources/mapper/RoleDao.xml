@@ -60,6 +60,7 @@
         delete from shirojwt.role where id = #{id}
     </delete>
 
+    <!--通过userID查询-->
     <select id="findByUserId" resultMap="RoleMap">
         SELECT
             r.*

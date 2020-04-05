@@ -54,4 +54,11 @@ public interface PermissionService {
      */
     boolean deleteById(Integer id);
 
+    /**
+     * 根据roleId获取权限
+     *
+     * @param roleIds
+     * @return
+     */
+    List<Permission> getByRoleIdList(List<Integer> roleIds);
 }

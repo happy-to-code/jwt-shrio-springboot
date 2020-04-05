@@ -3,12 +3,17 @@ package com.yida.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yida.dao.UserDao;
 import com.yida.dto.UserDTO;
+import com.yida.entity.Permission;
+import com.yida.entity.Role;
 import com.yida.entity.User;
+import com.yida.service.PermissionService;
+import com.yida.service.RoleService;
 import com.yida.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +26,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private RoleService roleService;
+
+    @Resource
+    private PermissionService permissionService;
 
     /**
      * 通过ID查询单条数据
@@ -94,12 +105,34 @@ public class UserServiceImpl implements UserService {
             UserDTO userDTO = new UserDTO();
             BeanUtils.copyProperties(user, userDTO);
             // 查询角色信息
+            List<Role> roleList = roleService.findByUserId(user.getId());
 
-
-
+            if (roleList.size() > 0) {
+                userDTO.setRoleList(roleList);
+                // 查询权限信息
+                List<Integer> roleIds = getRoleIdList(roleList);
+                List<Permission> permissions = permissionService.getByRoleIdList(roleIds);
+                if (permissions.size() > 0) {
+                    userDTO.setPermissionList(permissions);
+                }
+            }
             return userDTO;
         }
 
         return null;
+    }
+
+    /**
+     * 获取roleIds
+     *
+     * @param roleList
+     * @return
+     */
+    private List<Integer> getRoleIdList(List<Role> roleList) {
+        List<Integer> roleIds = new ArrayList<>(roleList.size());
+        for (Role role : roleList) {
+            roleIds.add(role.getId());
+        }
+        return roleIds;
     }
 }

@@ -2,8 +2,8 @@ package com.yida.service.impl;
 
 import com.yida.dao.PermissionDao;
 import com.yida.entity.Permission;
-import org.springframework.stereotype.Service;
 import com.yida.service.PermissionService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -75,5 +75,16 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public boolean deleteById(Integer id) {
         return this.permissionDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 根据roleId获取权限
+     *
+     * @param roleIds
+     * @return
+     */
+    @Override
+    public List<Permission> getByRoleIdList(List<Integer> roleIds) {
+        return this.permissionDao.getByRoleIdList(roleIds);
     }
 }

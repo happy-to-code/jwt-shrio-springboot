@@ -67,4 +67,19 @@
         delete from shirojwt.permission where id = #{id}
     </delete>
 
+    <!--根据roleId获取权限-->
+    <select id="getByRoleIdList" resultMap="PermissionMap">
+        SELECT
+            p.*
+        FROM
+            `role_permission` rp,
+            permission p
+        WHERE
+            rp.permission_id = p.id
+            AND rp.role_id IN
+            <foreach collection="roleIds" index="roleId" close=")" open="(" item="roleId" separator=",">
+                #{roleId}
+            </foreach>
+    </select>
+
 </mapper>
