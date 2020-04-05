@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- magenta:洋红 -->
+    <!-- boldMagenta:粗红-->
+    <!-- cyan:青色 -->
+    <!-- white:白色 -->
+    <!-- magenta:洋红 -->
+
+    <property name="PROJECT_NAME" value="yida-jwt-shrio"/>
+    <property name="FILE_PATH" value="./logs/${PROJECT_NAME}"/>
+
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%highlight(${PROJECT_NAME}) |%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
+    <property name="FILE_LOG_PATTERN" value="${PROJECT_NAME} |%date{yyyy-MM-dd HH:mm:ss} |%-5level |%thread |%file:%line |%logger |%msg%n"/>
+
+    <!--==================控制台==================-->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+    <!--==================控制台==================-->
+
+    <!--==================写入文件==================-->
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 保存日志文件的路径 -->
+        <File>${FILE_PATH}/${PROJECT_NAME}.log</File>
+        <!-- 日志格式 -->
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${FILE_PATH}/${PROJECT_NAME}_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 最大保存时间-->
+            <maxHistory>30</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>512MB</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <!--==================写入文件==================-->
+
+
+    <!--==================异常日志==================-->
+    <logger name="com.ibatis" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="java.sql.PreparedStatement" level="INFO"/>
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="INFO"/>
+    <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="INFO"/>
+    <logger name="java.sql" level="INFO"/>
+    <logger name="org.apache.commons" level="INFO"/>
+    <logger name="java.sql.Statement" level="INFO"/>
+    <logger name="org.springframework.web.context.support.XmlWebApplicationContext" level="INFO"/>
+    <logger name="com.ibatis.common.jdbc.SimpleDataSource" level="INFO"/>
+    <logger name="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" level="INFO"/>
+    <logger name="java.sql.ResultSet" level="INFO"/>
+    <logger name="java.sql.Connection" level="INFO"/>
+    <logger name="com.ibatis.common.jdbc.ScriptRunner" level="INFO"/>
+
+    <!--监控sql日志输出 -->
+    <logger name="jdbc.sqlonly" level="INFO" additivity="false">
+        <appender-ref ref="consoleLog"/>
+    </logger>
+
+    <logger name="jdbc.resultset" level="ERROR" additivity="false">
+        <appender-ref ref="consoleLog"/>
+    </logger>
+
+    <logger name="jdbc.resultsettable" level="INFO" additivity="false">
+        <appender-ref ref="consoleLog"/>
+    </logger>
+
+    <logger name="jdbc.connection" level="OFF" additivity="false">
+        <appender-ref ref="consoleLog"/>
+    </logger>
+
+    <logger name="jdbc.sqltiming" level="OFF" additivity="false">
+        <appender-ref ref="consoleLog"/>
+    </logger>
+
+    <logger name="jdbc.audit" level="OFF" additivity="false">
+        <appender-ref ref="consoleLog"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="logfile"/>
+        <appender-ref ref="consoleLog"/>
+    </root>
+</configuration>
