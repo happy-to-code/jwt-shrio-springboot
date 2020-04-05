@@ -11,12 +11,12 @@ import java.io.Serializable;
 public class Role implements Serializable {
     private static final long serialVersionUID = -53136244988311795L;
     /**
-    * ID
-    */
+     * ID
+     */
     private Integer id;
     /**
-    * 角色名称
-    */
+     * 角色名称
+     */
     private String name;
 
 

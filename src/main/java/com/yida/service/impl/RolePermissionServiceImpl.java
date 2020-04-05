@@ -2,8 +2,8 @@ package com.yida.service.impl;
 
 import com.yida.dao.RolePermissionDao;
 import com.yida.entity.RolePermission;
-import org.springframework.stereotype.Service;
 import com.yida.service.RolePermissionService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;

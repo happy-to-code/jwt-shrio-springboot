@@ -29,7 +29,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="UserMap">
         select
-          id, account, password, username, reg_time
+        id, account, password, username, reg_time
         from shirojwt.user
         <where>
             <if test="id != null">

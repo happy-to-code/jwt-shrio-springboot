@@ -27,7 +27,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="PermissionMap">
         select
-          id, name, per_code
+        id, name, per_code
         from shirojwt.permission
         <where>
             <if test="id != null">
@@ -70,16 +70,16 @@
     <!--根据roleId获取权限-->
     <select id="getByRoleIdList" resultMap="PermissionMap">
         SELECT
-            p.*
+        p.*
         FROM
-            `role_permission` rp,
-            permission p
+        `role_permission` rp,
+        permission p
         WHERE
-            rp.permission_id = p.id
-            AND rp.role_id IN
-            <foreach collection="roleIds" index="roleId" close=")" open="(" item="roleId" separator=",">
-                #{roleId}
-            </foreach>
+        rp.permission_id = p.id
+        AND rp.role_id IN
+        <foreach collection="roleIds" index="roleId" close=")" open="(" item="roleId" separator=",">
+            #{roleId}
+        </foreach>
     </select>
 
 </mapper>

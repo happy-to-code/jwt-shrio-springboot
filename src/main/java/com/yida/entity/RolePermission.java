@@ -11,16 +11,16 @@ import java.io.Serializable;
 public class RolePermission implements Serializable {
     private static final long serialVersionUID = 940072301224083845L;
     /**
-    * ID
-    */
+     * ID
+     */
     private Integer id;
     /**
-    * 角色id
-    */
+     * 角色id
+     */
     private Integer roleId;
     /**
-    * 权限id
-    */
+     * 权限id
+     */
     private Integer permissionId;
 
 

@@ -1,10 +1,10 @@
 package com.yida.controller;
 
 import com.yida.entity.Permission;
+import com.yida.service.PermissionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.yida.service.PermissionService;
 
 import javax.annotation.Resource;
 

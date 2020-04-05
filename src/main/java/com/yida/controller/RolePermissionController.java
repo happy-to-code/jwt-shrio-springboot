@@ -1,8 +1,10 @@
 package com.yida.controller;
 
 import com.yida.entity.RolePermission;
-import org.springframework.web.bind.annotation.*;
 import com.yida.service.RolePermissionService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 

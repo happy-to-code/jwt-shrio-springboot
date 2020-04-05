@@ -33,6 +33,12 @@ public class UserDTO implements Serializable {
      * 昵称
      */
     private String username;
+
+    /**
+     * 盐
+     */
+    private String salt;
+
     /**
      * 注册时间
      */

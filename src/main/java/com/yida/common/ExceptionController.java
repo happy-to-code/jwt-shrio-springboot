@@ -9,30 +9,48 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author zhangyifei
+ */
 @RestControllerAdvice
 public class ExceptionController {
+
     private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ExceptionController.class);
 
-    // 捕捉shiro的异常
+    /**
+     * 捕捉shiro的异常
+     *
+     * @param e
+     * @return
+     */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     public ResponseBean handle401(ShiroException e) {
-        System.out.println("捕捉shiro的异常");
-        logger.debug("捕捉shiro的异常");
+        logger.debug("捕捉到shiro的异常");
         e.printStackTrace();
         return new ResponseBean(401, e.getMessage(), null);
     }
 
-    // 捕捉UnauthorizedException
+
+    /**
+     * 捕捉UnauthorizedException
+     *
+     * @return
+     */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseBean handle401() {
-        System.out.println("捕捉UnauthorizedException的异常");
-
+        logger.debug("捕捉UnauthorizedException的异常");
         return new ResponseBean(401, "Unauthorized", null);
     }
 
-    // 捕捉其他所有异常
+    /**
+     * 捕捉其他所有异常
+     *
+     * @param request
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseBean globalException(HttpServletRequest request, Throwable ex) {

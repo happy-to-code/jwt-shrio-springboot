@@ -47,6 +47,7 @@ public interface RoleDao extends BaseMapper<Role> {
      * @param role 实例对象
      * @return 影响行数
      */
+    @Override
     int insert(Role role);
 
     /**

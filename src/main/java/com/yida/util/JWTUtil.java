@@ -11,11 +11,16 @@ import org.apache.logging.log4j.Logger;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
+/**
+ * @author zhangyifie
+ */
 public class JWTUtil {
     final static Logger logger = LogManager.getLogger(JWTUtil.class);
 
-    // 过期时间5分钟
-    private static final long EXPIRE_TIME = 5 * 60 * 1000;
+    /**
+     * 过期时间30分钟
+     */
+    private static final long EXPIRE_TIME = 30 * 60 * 1000;
 
     /**
      * 校验token是否正确
@@ -71,14 +76,6 @@ public class JWTUtil {
                     .sign(algorithm);
             logger.debug(String.format("JWT:%s", jwtString));
             return jwtString;
-
-            //下面这个多了一个角色字段
-//            return Jwts.builder() .setSubject(userName)          		 
-//            		                .claim("roles", "user")            		 
-//            		                .setIssuedAt(new Date())            		 
-//            		                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXP)) /*过期时间*/            		 
-//            		                .signWith(SignatureAlgorithm.HS256, secret)            		 
-//            		                .compact();
         } catch (UnsupportedEncodingException e) {
             return null;
         }

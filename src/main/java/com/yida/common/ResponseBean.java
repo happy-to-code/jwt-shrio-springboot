@@ -1,5 +1,9 @@
 package com.yida.common;
 
+/**
+ * @author zahngyifei
+ * 返回体
+ */
 public class ResponseBean {
 
     /**

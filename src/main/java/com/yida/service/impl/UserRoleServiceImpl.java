@@ -2,8 +2,8 @@ package com.yida.service.impl;
 
 import com.yida.dao.UserRoleDao;
 import com.yida.entity.UserRole;
-import org.springframework.stereotype.Service;
 import com.yida.service.UserRoleService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;

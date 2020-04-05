@@ -26,7 +26,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="RoleMap">
         select
-          id, name
+        id, name
         from shirojwt.role
         <where>
             <if test="id != null">

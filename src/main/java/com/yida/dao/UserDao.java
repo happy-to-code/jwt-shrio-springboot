@@ -47,6 +47,7 @@ public interface UserDao extends BaseMapper<User> {
      * @param user 实例对象
      * @return 影响行数
      */
+    @Override
     int insert(User user);
 
     /**

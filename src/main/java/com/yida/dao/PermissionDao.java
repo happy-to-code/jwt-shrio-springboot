@@ -46,6 +46,7 @@ public interface PermissionDao extends BaseMapper<Permission> {
      * @param permission 实例对象
      * @return 影响行数
      */
+    @Override
     int insert(Permission permission);
 
     /**

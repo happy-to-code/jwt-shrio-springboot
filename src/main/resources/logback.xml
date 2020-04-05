@@ -11,7 +11,8 @@
 
     <property name="CONSOLE_LOG_PATTERN"
               value="%highlight(${PROJECT_NAME}) |%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
-    <property name="FILE_LOG_PATTERN" value="${PROJECT_NAME} |%date{yyyy-MM-dd HH:mm:ss} |%-5level |%thread |%file:%line |%logger |%msg%n"/>
+    <property name="FILE_LOG_PATTERN"
+              value="${PROJECT_NAME} |%date{yyyy-MM-dd HH:mm:ss} |%-5level |%thread |%file:%line |%logger |%msg%n"/>
 
     <!--==================控制台==================-->
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">

@@ -27,7 +27,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="RolePermissionMap">
         select
-          id, role_id, permission_id
+        id, role_id, permission_id
         from shirojwt.role_permission
         <where>
             <if test="id != null">

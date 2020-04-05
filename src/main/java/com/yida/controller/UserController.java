@@ -1,10 +1,12 @@
 package com.yida.controller;
 
 import com.yida.entity.User;
+import com.yida.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.web.bind.annotation.*;
-import com.yida.service.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -30,7 +32,7 @@ public class UserController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    @RequiresPermissions(logical = Logical.AND, value = {"user:view", "user:edit"})
+    @RequiresPermissions(logical = Logical.OR, value = {"user:view", "user:edit"})
     public User selectOne(Integer id) {
         return this.userService.queryById(id);
     }

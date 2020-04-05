@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 
-
 /**
  * 角色资源表(RolePermission)表数据库访问层
  *
@@ -48,6 +47,7 @@ public interface RolePermissionDao extends BaseMapper<RolePermission> {
      * @param rolePermission 实例对象
      * @return 影响行数
      */
+    @Override
     int insert(RolePermission rolePermission);
 
     /**

@@ -16,6 +16,10 @@ import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zhangyifei
+ * shrio安全配置文件
+ */
 @Configuration
 public class ShiroConfig {
 
@@ -25,13 +29,15 @@ public class ShiroConfig {
         // 使用自己的realm
         manager.setRealm(realm);
 
-        /*
+        /**
          * 关闭shiro自带的session，详情见文档
          * http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29
          */
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+
         DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
+
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         manager.setSubjectDAO(subjectDAO);
 
@@ -50,9 +56,8 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(securityManager);
         factoryBean.setUnauthorizedUrl("/401");
 
-        /*
+        /**
          * 自定义url规则
-         * http://shiro.apache.org/web.html#urls-
          */
         Map<String, String> filterRuleMap = new HashMap<>(4);
         // 所有请求通过我们自己的JWT Filter
