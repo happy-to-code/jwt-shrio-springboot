@@ -32,7 +32,8 @@ public class RoleController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    @RequiresRoles("admin")
+    // @RequiresRoles(value = {"admin","guest"},logical = Logical.OR)
+    @RequiresRoles(value = {"guest"})
     public Role selectOne(Integer id) {
         return this.roleService.queryById(id);
     }

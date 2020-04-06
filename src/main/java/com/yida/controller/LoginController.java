@@ -8,6 +8,7 @@ import com.yida.util.JWTUtil;
 import com.yida.util.ShiroKit;
 import com.yida.util.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,10 @@ public class LoginController {
         log.info("用户登录");
         String username = requestJson.getString("username");
         String password = requestJson.getString("password");
+
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            throw new RuntimeException("用户名和密码不可以为空！");
+        }
 
         // 从数据库中根据用户名查找该用户信息
         UserDTO userDTO = userService.getByUseName(username);
