@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * @author zhangyifei
+ */
 @Configuration
 public class MyRealm extends AuthorizingRealm {
     @Resource

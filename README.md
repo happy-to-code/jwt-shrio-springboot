@@ -7,12 +7,14 @@
 - IDE：IntelliJ IDEA （后端）
 - 依赖管理：Maven
 - 数据库：MySQL 5.7.18
+---
 
 #### 表结构的简介
 ```aidl
     权限的认证和校验采用RBAC模型，总共有5张表，分别为user、user_role、role、role_permission和permission，
 其中user_role和role_permission为中间表，user表和role表示一对多的关系，role表和permission表也是一对多的关系。
 ```
+---
 #### 项目权限验证流程
 1.用户填写用户名和密码后用POST请求访问/login接口，程序返回token令牌信息，失败则直接返回身份错误信息。
 
@@ -21,6 +23,8 @@
 3.服务端进行token认证，失败身份错误信息。
 
 4.用JWT做认证（登录），Shiro做授权。
+
+---
 
 #### 项目运行
 
@@ -34,7 +38,7 @@
     
 -   IDEA运行DemoApplication，则可启动项目。或在yida-jwt-shiro目录下运行命令mvn clean package，然后在yida-jwt-shiro/target目录下运行java -jar yida-jwt-shiro-1.0-SNAPSHOT.jar命令
 
-
+---
 #### 测试
 - 1、启动应用
 
